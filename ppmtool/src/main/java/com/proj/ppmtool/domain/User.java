@@ -117,8 +117,6 @@ public class User implements UserDetails {
         this.update_At = new Date();
     }
 
-    // UserDetails interface methods
-
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {

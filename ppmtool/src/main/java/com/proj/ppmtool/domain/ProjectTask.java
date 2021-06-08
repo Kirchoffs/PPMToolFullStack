@@ -8,7 +8,6 @@ import java.util.Date;
 
 @Entity
 public class ProjectTask {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
