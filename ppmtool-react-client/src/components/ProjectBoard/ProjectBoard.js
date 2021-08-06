@@ -10,18 +10,12 @@ class ProjectBoard extends Component {
         super();
         this.state = {
             errors: {}
-        }
+        };
     }
 
     componentDidMount() {
         const { id } = this.props.match.params;
         this.props.getBacklog(id);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.errors) {
-            this.setState({ errors: nextProps.errors });
-        }
     }
 
     render() {
@@ -65,15 +59,13 @@ class ProjectBoard extends Component {
     }
 }
 
-ProjectBoard.PropTypes = {
+ProjectBoard.propTypes = {
     backlog: PropTypes.object.isRequired,
     getBacklog: PropTypes.func.isRequired,
-    errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
     backlog: state.backlog,
-    errors: state.errors
 });
 
 export default connect(mapStateToProps, { getBacklog })(ProjectBoard);

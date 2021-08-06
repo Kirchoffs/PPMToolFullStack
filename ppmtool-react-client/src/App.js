@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Dashboard from './components/Dashboard';
 import Header from './components/Layout/Header';
+import Landing from './components/Layout/Landing';
+import Alert from './components/Layout/Alert';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AddProject from './components/Project/AddProject';
@@ -11,7 +13,6 @@ import UpdateProject from './components/Project/UpdateProject';
 import ProjectBoard from './components/ProjectBoard/ProjectBoard';
 import AddProjectTask from './components/ProjectBoard/ProjectTasks/AddProjectTask';
 import UpdateProjectTask from './components/ProjectBoard/ProjectTasks/UpdateProjectTask';
-import Landing from './components/Layout/Landing';
 import Register from './components/UserManagement/Register';
 import Login from './components/UserManagement/Login';
 import jwtDecode from "jwt-decode";
@@ -45,10 +46,12 @@ class App extends Component {
           <div className="App">
             <Header />
 
+            <Alert />
+
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            
+
             <Switch>
                 <SecuredRoute exact path="/dashboard" component={Dashboard} />
                 <SecuredRoute exact path="/addProject" component={AddProject} />
@@ -69,7 +72,7 @@ class App extends Component {
                 />
                 <SecuredRoute
                     exact
-                    path="/updateProjectTask/:backlog_id/:pt_id"
+                    path="/updateProjectTask/:backlogId/:ptId"
                     component={UpdateProjectTask}
                 />
             </Switch>

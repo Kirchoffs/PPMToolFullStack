@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
+import classnames from "classnames";
 import { addProjectTask } from '../../../actions/backlogActions'
 import PropTypes from 'prop-types';
 
@@ -10,22 +10,15 @@ class AddProjectTask extends Component {
         super(props);
         const { id } = this.props.match.params;
         this.state = {
-            "summary": "",
-            "acceptanceCriteria": "",
-            "status": "",
-            "priority": 0,
-            "dueDate": "",
-            "projectIdentifier": id,
-            "errors": {}
+            summary: "",
+            acceptanceCriteria: "",
+            status: "",
+            priority: 0,
+            dueDate: "",
+            projectIdentifier: id,
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.errors) {
-            this.setState({ errors: nextProps.errors });
-        }
     }
 
     onChange(e) {
@@ -35,11 +28,11 @@ class AddProjectTask extends Component {
     onSubmit(e) {
         e.preventDefault();
         const newTask = {
-            "summary": this.state.summary,
-            "acceptanceCriteria": this.state.acceptanceCriteria,
-            "status": this.state.status,
-            "priority": this.state.priority,
-            "dueDate": this.state.dueDate
+            summary: this.state.summary,
+            acceptanceCriteria: this.state.acceptanceCriteria,
+            status: this.state.status,
+            priority: this.state.priority,
+            dueDate: this.state.dueDate
         };
         this.props.addProjectTask(
             this.state.projectIdentifier, 
@@ -49,14 +42,13 @@ class AddProjectTask extends Component {
     }
 
     render() {
-        const { id } = this.props.match.params;
-        const { errors } = this.state;
+        const { errors } = this.props;
         return (
             <div className="add-PBI">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
-                            <Link to={`/projectBoard/{id}`} className="btn btn-light">
+                            <Link to={`/projectBoard/${this.state.projectIdentifier}`} className="btn btn-light">
                                 Back to Project Board
                             </Link>
                             <h4 className="display-4 text-center">Add Project Task</h4>
@@ -67,17 +59,12 @@ class AddProjectTask extends Component {
                                         type="text"
                                         className={classnames("form-control form-control-lg", {
                                             "is-invalid": errors.summary
-                                        })} 
-                                        name="summary" 
+                                        })}
+                                        name="summary"
                                         placeholder="Project Task summary"
                                         value={this.state.summary}
                                         onChange={this.onChange}
                                     />
-                                    {
-                                        errors.summary && (
-                                            <div className="invalid-feedback">{errors.summary}</div>
-                                        )
-                                    }
                                 </div>
                                 <div className="form-group">
                                     <textarea 

@@ -39,11 +39,6 @@ class Backlog extends Component {
                                 <h3>In Progress</h3>
                             </div>
                         </div>
-                        {
-                        // <!-- SAMPLE PROJECT TASK STARTS HERE -->
-
-                        // <!-- SAMPLE PROJECT TASK ENDS HERE -->
-                        }
                         {inProgressTasks}
                     </div>
                     <div className="col-md-4">

@@ -1,5 +1,6 @@
-import axios from 'axios';
-import { GET_ERRORS, GET_BACKLOG, GET_PROJECT_TASK, DELETE_PROJECT_TASK } from './types';
+import axios from '../api/axios';
+import { GET_BACKLOG, GET_PROJECT_TASK, DELETE_PROJECT_TASK } from './types';
+import setAlert from './alertActions';
 
 export const addProjectTask = (
     backlogId, 
@@ -9,10 +10,9 @@ export const addProjectTask = (
     try {
         await axios.post(`/api/backlog/${backlogId}`, projectTask);
         history.push(`/projectBoard/${backlogId}`);
-    } catch(err) {
-        dispatch({
-            type: GET_ERRORS,
-            payload: err.response.data
+    } catch(errors) {
+        Object.values(errors.response.data).forEach(error => {
+            dispatch(setAlert(error, 'danger'));
         });
     }
 };
@@ -24,10 +24,9 @@ export const getBacklog = backlogId => async dispatch => {
             type: GET_BACKLOG,
             payload: res.data
         })
-    } catch(err) {
-        dispatch({
-            type: GET_ERRORS,
-            payload: err.response.data
+    } catch(errors) {
+        Object.values(errors.response.data).forEach(error => {
+            dispatch(setAlert(error, 'danger'));
         });
     }
 }
@@ -39,7 +38,7 @@ export const getProjectTask = (backlogId, ptId, history) => async dispatch => {
             type: GET_PROJECT_TASK,
             payload: res.data
         });
-    } catch(err) {
+    } catch(errors) {
         history.push('/dashboard');
     }
 }
@@ -48,14 +47,9 @@ export const updateProjectTask = (backlogId, ptId, projectTask, history) => asyn
     try {
         await axios.patch(`/api/backlog/${backlogId}/${ptId}`, projectTask);
         history.push(`/projectBoard/${backlogId}`);
-        dispatch({
-            type: GET_ERRORS,
-            payload: {}
-        });
-    } catch(err) {
-        dispatch({
-            type: GET_ERRORS,
-            payload: err.response.data
+    } catch(errors) {
+        Object.values(errors.response.data).forEach(error => {
+            dispatch(setAlert(error, 'danger'));
         });
     }
 }

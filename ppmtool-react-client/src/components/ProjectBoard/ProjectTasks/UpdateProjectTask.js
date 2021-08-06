@@ -173,7 +173,7 @@ class UpdateProjectTask extends Component {
 UpdateProjectTask.propTypes = {
     getProjectTask: PropTypes.func.isRequired,
     projectTask: PropTypes.object.isRequired,
-    updateProjectTask: PropTypes.object.isRequired,
+    updateProjectTask: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
 }
 

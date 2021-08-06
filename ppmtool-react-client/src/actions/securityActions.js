@@ -1,21 +1,21 @@
-import axios from "axios";
+import axios from "../api/axios";
 import setJWTToken from "../securityUtils/setJWTToken";
 import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 import jwtDecode from "jwt-decode";
+import setAlert from "./alertActions";
 
 export const createNewUser = (newUser, history) => async dispatch => {
     try {
         await axios.post("/api/users/register", newUser);
         history.push("/login");
-        dispatch ({
-            type: GET_ERRORS,
-            payload: {} 
+    } catch (errors) {
+        Object.values(errors.response.data).forEach(error => {
+            dispatch(setAlert(error, 'danger'));
         });
-    } catch (err) {
-        dispatch ({
+        dispatch({
             type: GET_ERRORS,
-            payload: err.response.data
-        });
+            payload: errors.response.data
+        })
     }
 }
 
@@ -30,11 +30,14 @@ export const login = loginRequest => async dispatch => {
             type: SET_CURRENT_USER,
             payload: decoded
         })
-    } catch(err) {
+    } catch(errors) {
+        Object.values(errors.response.data).forEach(error => {
+            dispatch(setAlert(error, 'danger'));
+        });
         dispatch({
             type: GET_ERRORS,
-            payload: err.payload.data
-        });
+            payload: errors.response.data
+        })
     }
 };
 
