@@ -54,13 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and()
                 .csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-                .and()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .headers().frameOptions().sameOrigin() // To enable H2 Database
-                .and()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .headers().frameOptions().sameOrigin().and()
                 .authorizeRequests()
                 .antMatchers(
                         "/",
