@@ -42,7 +42,6 @@ class Register extends Component {
 
     render() {
         const { errors } = this.props;
-        console.log(this.props);
         return (
             <div className="register">
                 <div className="container">

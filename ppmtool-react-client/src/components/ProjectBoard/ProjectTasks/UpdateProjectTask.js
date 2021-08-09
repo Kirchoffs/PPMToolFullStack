@@ -6,7 +6,6 @@ import { getProjectTask, updateProjectTask } from '../../../actions/backlogActio
 import PropTypes from 'prop-types';
 
 class UpdateProjectTask extends Component {
-
     constructor() {
         super();
         this.state = {
@@ -22,42 +21,47 @@ class UpdateProjectTask extends Component {
             errors: {}
         }
         this.onChange = this.onChange.bind(this);
-        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentDidMount() {
+        console.log("Ready to retrive the project task");
         const { backlogId, ptId } = this.props.match.params;
         this.props.getProjectTask(backlogId, ptId, this.props.history);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.errors) {
-            this.setState({errors: nextProps.errors});
+    componentDidUpdate(prevProps) {
+        if (this.props.projectTask.id !== this.state.id) {
+            console.log("Ready to show the data");
+            if (this.props.errors) {
+                this.setState({errors: this.props.errors});
+            }
+            const {
+                id,
+                projectSequence,
+                summary,
+                acceptanceCriterials,
+                status,
+                priority,
+                dueDate,
+                projectIdentifier,
+                created_At
+            } = this.props.projectTask;
+            
+            const processedDueDate = dueDate === null ? "" : dueDate.substring(0, 10);
+            
+            this.setState({
+                id,
+                projectSequence,
+                summary,
+                acceptanceCriterials,
+                status,
+                priority,
+                dueDate: processedDueDate,
+                projectIdentifier,
+                created_At
+            });
         }
-
-        const {
-            id,
-            projectSequence,
-            summary,
-            acceptanceCriterials,
-            status,
-            priority,
-            dueDate,
-            projectIdentifier,
-            created_At
-        } = nextProps.projectTask;
-
-        this.setState({
-            id,
-            projectSequence,
-            summary,
-            acceptanceCriterials,
-            status,
-            priority,
-            dueDate,
-            projectIdentifier,
-            created_At
-        });
     }
 
     onChange(e) {
@@ -91,7 +95,7 @@ class UpdateProjectTask extends Component {
                                 Back to Project Board
                             </Link>
                             <h4 className="display-4 text-center">Update Project Task</h4>
-                            <p className="lead text-center">Project Name: {this.state.projectIdentifier} + Project Task ID: {this.state.projectSequence}</p>
+                            <p className="lead text-center">Project Name: {this.state.projectIdentifier} & Project Task ID: {this.state.projectSequence}</p>
                             <form onSubmit={this.onSubmit}>
                                 <div className="form-group">
                                     <input 

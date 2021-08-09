@@ -23,7 +23,7 @@ class ProjectBoard extends Component {
         const { projectTasks } = this.props.backlog;
         const { errors } = this.state;
 
-        const boardAlgorithm = (projectTasks, errors) => {
+        const kanbanBoard = (projectTasks, errors) => {
             if (projectTasks.length === 0) {
                 if (errors.projectNotFound) {
                     return (
@@ -45,13 +45,13 @@ class ProjectBoard extends Component {
             }
         };
 
-        let BoardContent = boardAlgorithm(projectTasks, errors);
+        let BoardContent = kanbanBoard(projectTasks, errors);
+
         return (
             <div className="container">
                 <Link to={`/addProjectTask/${id}`} className="btn btn-primary mb-3">
-                    <i className="fas fa-plus-circle"> Create Project Task</i>
+                    <i className="fas fa-plus-circle"/> Create Project Task
                 </Link>
-                <br />
                 <hr />
                 { BoardContent }
             </div>
