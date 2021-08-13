@@ -12,7 +12,7 @@ class UpdateProjectTask extends Component {
             id: '',
             projectSequence: '',
             summary: '',
-            acceptanceCriterials: '',
+            acceptanceCriteria: '',
             status: '',
             priority: '',
             dueDate: '',
@@ -31,16 +31,15 @@ class UpdateProjectTask extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        if (this.props.errors !== this.state.errors) {
+            this.setState({errors: this.props.errors});
+        }
         if (this.props.projectTask.id !== this.state.id) {
-            console.log("Ready to show the data");
-            if (this.props.errors) {
-                this.setState({errors: this.props.errors});
-            }
-            const {
+            let {
                 id,
                 projectSequence,
                 summary,
-                acceptanceCriterials,
+                acceptanceCriteria,
                 status,
                 priority,
                 dueDate,
@@ -48,16 +47,17 @@ class UpdateProjectTask extends Component {
                 created_At
             } = this.props.projectTask;
             
-            const processedDueDate = dueDate === null ? "" : dueDate.substring(0, 10);
+            acceptanceCriteria = acceptanceCriteria === null ? "" : acceptanceCriteria
+            dueDate = dueDate === null ? "" : dueDate.substring(0, 10);
             
             this.setState({
                 id,
                 projectSequence,
                 summary,
-                acceptanceCriterials,
+                acceptanceCriteria,
                 status,
                 priority,
-                dueDate: processedDueDate,
+                dueDate,
                 projectIdentifier,
                 created_At
             });
@@ -74,7 +74,7 @@ class UpdateProjectTask extends Component {
             id: this.state.id,
             projectSequence: this.state.projectSequence,
             summary: this.state.summary,
-            acceptanceCriterials: this.state.acceptanceCriterials,
+            acceptanceCriteria: this.state.acceptanceCriteria,
             status: this.state.status,
             priority: this.state.priority,
             dueDate: this.state.dueDate,
@@ -108,20 +108,13 @@ class UpdateProjectTask extends Component {
                                         value={this.state.summary}
                                         onChange={this.onChange}
                                     />
-                                    {
-                                        errors.summary && (
-                                            <div className="invalid-feedback">
-                                                {errors.summary}
-                                            </div>
-                                        )
-                                    }
                                 </div>
                                 <div className="form-group">
                                     <textarea 
                                         className="form-control form-control-lg"
                                         placeholder="Acceptance Criteria"
                                         name="acceptanceCriteria"
-                                        value={this.state.acceptanceCriterials}
+                                        value={this.state.acceptanceCriteria}
                                         onChange={this.onChange}
                                     >
                                     </textarea>

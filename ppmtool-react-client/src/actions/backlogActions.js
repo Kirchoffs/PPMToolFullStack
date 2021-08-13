@@ -1,5 +1,5 @@
 import axios from '../api/axios';
-import { GET_BACKLOG, GET_PROJECT_TASK, DELETE_PROJECT_TASK } from './types';
+import { GET_BACKLOG, GET_PROJECT_TASK, DELETE_PROJECT_TASK, GET_ERRORS } from './types';
 import setAlert from './alertActions';
 
 export const addProjectTask = (
@@ -51,6 +51,10 @@ export const updateProjectTask = (backlogId, ptId, projectTask, history) => asyn
         Object.values(errors.response.data).forEach(error => {
             dispatch(setAlert(error, 'danger'));
         });
+        dispatch({
+            type: GET_ERRORS,
+            payload: errors.response.data
+        })
     }
 }
 
