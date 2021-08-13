@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 class ProjectTask extends Component {
     onDeleteClick(backlogId, ptId) {
-        this.props.deleteProjectTask(backlogId.ptId);
+        this.props.deleteProjectTask(backlogId, ptId);
     }
 
     render() {
@@ -41,10 +41,11 @@ class ProjectTask extends Component {
 
                     <button 
                         className="btn btn-danger ml-4" 
-                        onClick={this.onDeleteClick.bind(
-                            this, 
-                            projectTask.projectIdentifier, 
-                            projectTask.projectSequence
+                        onClick={
+                            this.onDeleteClick.bind(
+                                this, 
+                                projectTask.projectIdentifier, 
+                                projectTask.projectSequence
                             )
                         }
                     >

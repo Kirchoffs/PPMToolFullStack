@@ -14,6 +14,10 @@ export const addProjectTask = (
         Object.values(errors.response.data).forEach(error => {
             dispatch(setAlert(error, 'danger'));
         });
+        dispatch({
+            type: GET_ERRORS,
+            payload: errors.response.data
+        })
     }
 };
 

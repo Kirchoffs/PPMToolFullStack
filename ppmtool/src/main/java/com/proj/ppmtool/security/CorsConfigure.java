@@ -11,23 +11,24 @@ import java.util.Collections;
 
 @Configuration
 public class CorsConfigure {
+    /*
+    @Bean
+    public FilterRegistrationBean customizedCorsFilter() {
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
-//    @Bean
-//    public FilterRegistrationBean customizedCorsFilter() {
-//        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//
-//        final CorsConfiguration config = new CorsConfiguration();
-//        config.setAllowCredentials(true);
-//        config.setAllowedOrigins(Collections.singletonList("*"));
-//        config.setAllowedHeaders(Arrays.asList("*"));
-//        config.setAllowedMethods(Arrays.asList("*"));
-//
-//        source.registerCorsConfiguration("/**", config);
-//
-//        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-//        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-//        return bean;
-//    }
+        final CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.setAllowedOrigins(Collections.singletonList("*"));
+        config.setAllowedHeaders(Arrays.asList("*"));
+        config.setAllowedMethods(Arrays.asList("*"));
+
+        source.registerCorsConfiguration("/**", config);
+
+        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return bean;
+    }
+    */
 
     @Bean
     public CorsFilter corsFilter() {

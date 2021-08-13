@@ -16,6 +16,7 @@ class AddProjectTask extends Component {
             priority: 0,
             dueDate: "",
             projectIdentifier: id,
+            errors: {}
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -39,6 +40,12 @@ class AddProjectTask extends Component {
             newTask, 
             this.props.history
         );
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.errors !== this.state.errors) {
+            this.setState({errors: this.props.errors});
+        }
     }
 
     render() {
